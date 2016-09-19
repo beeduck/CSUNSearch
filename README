@@ -16,7 +16,7 @@ Description of the product:
 
 -----------
 
-To run locally requires Python
+To run locally using Python:
 - Open a command prompt in the directory of your project
 - Run 'python3 -m http.server' for Python3 or 'python -m SimpleHTTPServer' for other versions
 - View page on localhost:8000
