@@ -1,0 +1,83 @@
+body {
+    /*background-color: black;*/
+}
+
+#header {
+    color: red;
+}
+
+#mainSearch_homePage {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 5px;
+    background-color: red;
+}
+
+#mainSearch {
+    border: 0;
+    width: 95%;
+    height: 50px;
+    text-transform: uppercase;
+    margin-right: 0;
+    padding: 5px;
+}
+
+#mainButton {
+    border: 0;
+    width: 4%;
+    height: 50px;
+    float: right;
+    margin-left: 0;
+}
+
+.resultBox {
+    height: 25px;
+    width: 75%;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    display: none;
+}
+
+.courseNumber {
+    height: 25px;
+    float: left;
+    width: 25%;
+    background-color: #55565A;
+    color: white;
+}
+
+.title {
+    height: 25px;
+    float: right;
+    width: 75%;
+    background-color: red;
+    color: white;
+    font-size: 12px;
+}
+
+.courseInfo {
+    display: none;
+    background-color: #A9A8A9;
+}
+
+.description {
+    margin-left: auto;
+    margin-right: auto;
+    width: 75%;
+}
+
+.instructorWrapper {
+    height: 50px;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.prof {
+        float: left;
+}
+
+.timeSlot {
+    float: right;
+}

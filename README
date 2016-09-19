@@ -1,0 +1,22 @@
+Team name:
+TEAM-TWO
+
+Team members:
+	Francis Lagueu Fogang (Scrum Master)
+	Kristopher Morris (Product Owner)
+	Armand Abrahamian
+	Jennifer Doblan
+	Chi Tam
+
+Product name:
+	Class Search
+
+Description of the product:
+	This product is a web interface to allow student at CSUN to search for classes based on the criteria such as the upcoming or current term, the subject, the class title, the instructor, and the session(regular or online). As well as perform advanced searches on the section and the time or day of the week. The student should be able to filter their search result based on the following criteria: class, days of the week, instructor, and time.
+
+-----------
+
+To run locally requires Python
+- Open a command prompt in the directory of your project
+- Run 'python3 -m http.server' for Python3 or 'python -m SimpleHTTPServer' for other versions
+- View page on localhost:8000
