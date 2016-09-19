@@ -45,53 +45,35 @@ function readSearchInput() {
 function displayClasses(classesData) {
     var courseListArray = new Array();
     var courseMap = new Object();
+
     // Wait for the template html to load then input the data into each template
     $.when($.get(TEMPLATE_CLASS_BOX_DISPLAY, function(data) {
         resultBox = data;
     })).done(function() {
-        // These are the same
-
-        /*for (var key in classes) {
-         console.log(classes[key]["title"]);
-         console.log(key);
-
-         $("#content2").append(resultBox);
-         $(".courseNumber").last().html(key);
-         $(".title").last().html(classes[key]["title"]);
-         }*/
 
         $.each(classesData, function(index, value) {
 
-            // Old content appending before data roll up
-            /*$("#content").append(resultBox);
-
-             var tempCourseNum = index + " " + value["catalog_number"]
-
-             $(".courseNumber").last().html(tempCourseNum);
-             $(".title").last().html(value["title"]);
-             $(".description").last().html(value["description"]);
-
-             // TODO: iterate through professors array and concat for display
-             if(value["instructors"].length >= 1) {
-             $(".prof").last().html(value["instructors"][0]["instructor"]);
-             }
-
-             // TODO: iterate through meeting array and concat for display
-             if(value["meetings"].length >= 1) {
-             $(".timeSlot").last().html(value["meetings"][0]["days"]);
-             }*/
-
+            /**
+             * How the data roll up works:
+             * 1a - If non-existent: create a hash map for course info, adding relevant info to the map,
+             *      and add it to the course list hash map. Key is course number ("catalog_number")
+             * 1b - If already existing: pull the course info hash map from the course list hash map
+             * 2  - If necessary: add additional instructors to the course info hash map
+             * 3  - Append the course info box HTML structure to the HTML
+             * 4  - Iterate through the courses hash map for course info maps and push information
+             *      to the HTML structure
+             */
 
             var courseInfo = new Object();
 
             if(courseMap[value["catalog_number"]] === undefined) {
+                // Create a new course info hash map
                 courseInfo = new Object();
 
                 courseInfo["catalog_number"] = value["catalog_number"];
                 courseInfo["title"] = value["title"];
                 courseInfo["description"] = value["description"];
 
-                // TODO: Extract to another function
                 appendInstructor(courseInfo, value["instructors"]);
 
                 courseMap[value["catalog_number"]] = courseInfo;
@@ -103,17 +85,8 @@ function displayClasses(classesData) {
 
                 appendInstructor(courseInfo, value["instructors"]);
 
-                // Append instructor to course info
-                // Append time slot to course info
+                // TODO: Append time slot to course info
             }
-
-            // Data roll up:
-            // 1a - add a course hash of the course info to the total courses hash
-            //      (key is course num), add course to array list of courses for retrieval
-            // 1b - get the hash of course info
-            // 2  - append instructor to instructor array in course hash
-            // 3  - add course info html structure to content
-            // 4  - iterate through entire hash: pull course info and swap into html structure
 
         });
 
@@ -121,7 +94,6 @@ function displayClasses(classesData) {
             console.log(val["title"] + " " + i);
 
             $("#content").append(resultBox);
-
 
             $(".courseNumber").last().html(val["catalog_number"]);
             $(".title").last().html(val["title"]);
