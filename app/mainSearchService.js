@@ -75,6 +75,7 @@ function displayClasses(classesData) {
                 courseInfo["description"] = value["description"];
 
                 appendInstructor(courseInfo, value["instructors"]);
+                appendMeetings(courseInfo, value["meetings"]);
 
                 courseMap[value["catalog_number"]] = courseInfo;
                 courseListArray.push(value["catalog_number"]);
@@ -84,6 +85,7 @@ function displayClasses(classesData) {
                 var instructors = courseInfo["instructors"];
 
                 appendInstructor(courseInfo, value["instructors"]);
+                appendMeetings(courseInfo, value["meetings"]);
 
                 // TODO: Append time slot to course info
             }
@@ -99,6 +101,7 @@ function displayClasses(classesData) {
             $(".title").last().html(val["title"]);
             $(".description").last().html(val["description"]);
             $(".prof").last().html(val["instructors"]);
+            $(".timeSlot").last().html(val["meetings"]);
         });
 
         // TODO: This can be achieved by the above function.
@@ -132,6 +135,17 @@ function appendInstructor(courseInfo, instructors) {
             instructorString += instructors[i]["instructor"] + "<br>";
         }
         courseInfo["instructors"] = instructorString;
+    }
+}
+
+function appendMeetings(courseInfo, meetings) {
+    if(meetings.length >= 1) {
+        var meetingString = (courseInfo["meetings"] ? courseInfo["meetings"] : "");
+        for(var i = 0; i < meetings.length; i++) {
+            meetingString += meetings[i]["days"] + "&nbsp;"
+                + meetings[i]["start_time"] + "-" + meetings[i]["end_time"] + "<br>";
+        }
+        courseInfo["meetings"] = meetingString;
     }
 }
 
