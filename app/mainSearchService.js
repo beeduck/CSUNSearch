@@ -30,7 +30,7 @@ function readSearchInput() {
 
             // Store the catalog get data for when filtering is applied
             catalogGetData = data;
-            var classes = data["classes"];
+            var classes = data.classes;
 
             displayClasses(classes);
 
@@ -45,6 +45,7 @@ function readSearchInput() {
 function displayClasses(classesData) {
     var courseListArray = new Array();
     var courseMap = new Object();
+    var resultBox;
 
     // Wait for the template html to load then input the data into each template
     $.when($.get(TEMPLATE_CLASS_BOX_DISPLAY, function(data) {
@@ -66,42 +67,40 @@ function displayClasses(classesData) {
 
             var courseInfo = new Object();
 
-            if(courseMap[value["catalog_number"]] === undefined) {
+            if(courseMap[value.catalog_number] === undefined) {
                 // Create a new course info hash map
                 courseInfo = new Object();
 
-                courseInfo["catalog_number"] = value["catalog_number"];
-                courseInfo["title"] = value["title"];
-                courseInfo["description"] = value["description"];
+                courseInfo["catalog_number"] = value.catalog_number;
+                courseInfo["title"] = value.title;
+                courseInfo["description"] = value.description;
 
-                appendInstructor(courseInfo, value["instructors"]);
-                appendMeetings(courseInfo, value["meetings"]);
+                appendInstructor(courseInfo, value.instructors);
+                appendMeetings(courseInfo, value.meetings);
 
-                courseMap[value["catalog_number"]] = courseInfo;
-                courseListArray.push(value["catalog_number"]);
+                courseMap[value.catalog_number] = courseInfo;
+                courseListArray.push(value.catalog_number);
             } else {
-                courseInfo = courseMap[value["catalog_number"]];
+                courseInfo = courseMap[value.catalog_number];
 
-                var instructors = courseInfo["instructors"];
-
-                appendInstructor(courseInfo, value["instructors"]);
-                appendMeetings(courseInfo, value["meetings"]);
+                appendInstructor(courseInfo, value.instructors);
+                appendMeetings(courseInfo, value.meetings);
 
                 // TODO: Append time slot to course info
             }
 
         });
 
-        $.map(courseMap, function(val, i) {
-            console.log(val["title"] + " " + i);
+        $.map(courseMap, function(value, index) {
+            console.log(value.title + " " + index);
 
             $("#content").append(resultBox);
 
-            $(".courseNumber").last().html(val["catalog_number"]);
-            $(".title").last().html(val["title"]);
-            $(".description").last().html(val["description"]);
-            $(".prof").last().html(val["instructors"]);
-            $(".timeSlot").last().html(val["meetings"]);
+            $(".courseNumber").last().html(value.catalog_number);
+            $(".title").last().html(value.title);
+            $(".description").last().html(value.description);
+            $(".prof").last().html(value.instructors);
+            $(".timeSlot").last().html(value.meetings);
         });
 
         // TODO: This can be achieved by the above function.
@@ -130,22 +129,22 @@ function displayClasses(classesData) {
  */
 function appendInstructor(courseInfo, instructors) {
     if(instructors.length >= 1) {
-        var instructorString = (courseInfo["instructors"] ? courseInfo["instructors"] : "");
+        var instructorString = (courseInfo.instructors ? courseInfo.instructors : "");
         for(var i = 0; i < instructors.length; i++) {
-            instructorString += instructors[i]["instructor"] + "<br>";
+            instructorString += instructors[i].instructor + "<br>";
         }
-        courseInfo["instructors"] = instructorString;
+        courseInfo.instructors = instructorString;
     }
 }
 
 function appendMeetings(courseInfo, meetings) {
     if(meetings.length >= 1) {
-        var meetingString = (courseInfo["meetings"] ? courseInfo["meetings"] : "");
+        var meetingString = (courseInfo.meetings ? courseInfo.meetings : "");
         for(var i = 0; i < meetings.length; i++) {
-            meetingString += meetings[i]["days"] + "&nbsp;"
-                + meetings[i]["start_time"] + "-" + meetings[i]["end_time"] + "<br>";
+            meetingString += meetings[i].days + "&nbsp;"
+                + meetings[i].start_time + "-" + meetings[i].end_time + "<br>";
         }
-        courseInfo["meetings"] = meetingString;
+        courseInfo.meetings = meetingString;
     }
 }
 
